@@ -1,3 +1,4 @@
+# -*- coding:utf8 -*-
 import os
 from datetime import timedelta
 from flask import Flask, jsonify, request,session
