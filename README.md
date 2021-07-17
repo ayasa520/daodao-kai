@@ -3,7 +3,7 @@
 
 原项目：[Rock-Candy-Tea/daodao (github.com)](https://github.com/Rock-Candy-Tea/daodao)
 
-叨叨改可以部署在 vercel 上, 使用 MongoDB 存储数据: daodao-kai.vercel.app
+叨叨改可以部署在 vercel 上, 使用 MongoDB 存储数据: [vercel 部署的叨叨改](https://daodao-kai.vercel.app)
 
 ## 路由
 
