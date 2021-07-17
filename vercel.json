@@ -4,14 +4,14 @@
 		"source": "/api/(.*)",
 		"destination": "/api/index.py"
 	},{
-		"source": "/create",
-		"destination": "/static/create.html"
-	},{
 		"source": "/",
 		"destination": "/static/index.html"
 	},{
 		"source": "/login",
 		"destination": "/static/login.html"
+	},{
+		"source": "/create",
+		"destination": "/static/create.html"
 	},{
 		"source": "/css/index.css",
 		"destination": "/static/css/index.css"
