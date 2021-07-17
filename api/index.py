@@ -62,7 +62,7 @@ def create():
         new_content = json.loads(request.get_data(as_text=True))
         new_content['date'] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         new_content['_id'] = str(mycol.insert_one(new_content).inserted_id)
-        return jsonify(new_content)
+        return jsonify({"code":1,"msg":"创建成功","data":new_content})
     else:
         return jsonify({'code': 0, 'msg': "未登录"})
 

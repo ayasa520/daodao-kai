@@ -31,20 +31,21 @@
             marked(document.getElementsByClassName('Input_text')[0].value);
         }
         function create(){
+            if (document.getElementsByClassName('Input_text')[0].value==="")
+            {
+                return 0;
+            }
             xmlHttp = new XMLHttpRequest();
             xmlHttp.open("post","https://daodao-kai.vercel.app/api/create");
             xmlHttp.setRequestHeader("Content-type","application/json");
-            xmlHttp.send(JSON.stringify({"content":document.getElementById('content').innerHTML,"from":"chrome"}));
+            xmlHttp.send(JSON.stringify({"content":marked(document.getElementsByClassName('Input_text')[0].value),"from":"chrome"}));
             xmlHttp.onreadystatechange=function()
             {
                 if (xmlHttp.readyState==4 && xmlHttp.status==200)
                 {
                     console.log(xmlHttp.responseText);
                     var result = JSON.parse(xmlHttp.responseText);
-                    if(result["code"]===0)
-                    {
                         alert(result["msg"]);
-                    }
                 }
             }
         }
