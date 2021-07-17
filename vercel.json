@@ -19,6 +19,9 @@
 		"source": "/css/login.css",
 		"destination": "/static/css/login.css"
 	},{
+		"source": "/css/create.css",
+		"destination": "/static/css/create.css"
+	},{
 		"source": "/js/login.js",
 		"destination": "/static/js/login.js"
 	}]
