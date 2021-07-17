@@ -40,7 +40,7 @@
                 if (xmlHttp.readyState==4 && xmlHttp.status==200)
                 {
                     console.log(xmlHttp.responseText);
-                    if(xmlHttp.responseText.code===0)
+                    if(JSON.parse(xmlHttp.responseText)["code"]===0)
                     {
                         alert(xmlHttp.responseText.msg);
                     }
