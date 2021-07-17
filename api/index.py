@@ -24,12 +24,13 @@ def login():
     if session.get('username'):
         return jsonify({'code': 1, 'msg': "已登录"})
     try:
-        data = json.loads(request.get_data(as_text=True))
-        myquery = {'username': data['username'], 'password': data['password']}
+        username = request.form['username']
+        password = request.form['password']
+        myquery = {'username': username, 'password': password}
     except:
         return jsonify({'code': 0, 'msg': "表单填写错误"})
     if len(list(mydb['config'].find(myquery))) != 0:
-        session['username'] = data['username']
+        session['username'] = username
         session.permanent = True
         return jsonify({'code': 1, 'msg': "登陆成功"})
     else:

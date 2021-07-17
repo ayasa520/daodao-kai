@@ -1,17 +1,19 @@
 {
 	"version": 2,
-	"routes": [{
-		"headers": {
-			"Access-Control-Allow-Origin": "*"
-		},
-		"src": "/api(.*)",
-		"dest": "api/index.py",
-		"continue": true
+	"rewrites": [{
+		"source": "/api/(.*)",
+		"destination": "/api/index.py"
 	},{
-		"src": "/",
-		"dest": "/static/index.html"
+		"source": "/",
+		"destination": "/static/index.html"
 	},{
-		"src": "/login",
-		"dest": "/static/login.html"
+		"source": "/login",
+		"destination": "/static/login.html"
+	},{
+		"source": "/css/login.css",
+		"destination": "/static/css/login.css"
+	},{
+		"source": "/js/login.js",
+		"destination": "/static/js/login.js"
 	}]
 }
