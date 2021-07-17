@@ -10,7 +10,7 @@
 <body>
     <div class="box">
         <h2>登录</h2>
-        <form action="http://localhost:5000/api/login"  method="POST" onsubmit="return ajax_submit();">
+        <form action="http://127.0.0.1:5000/api/login"  method="POST" onsubmit="return ajax_submit();">
             <div class="inputbox">
                 <input type="text" id="username" name="username" required="">
                 <label>用户名</label>
@@ -28,7 +28,7 @@
     function ajax_submit(){
         $.ajax({
         type: 'POST',
-        url: 'http://localhost:5000/api/login',
+        url: 'https://daodao-kai.vercel.app/api/login',
         dataType: 'json',
         contentType: 'application/json;charset=UTF-8',
         xhrFields: {
