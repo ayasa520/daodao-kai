@@ -41,7 +41,10 @@
             "password": $("#password").val()
         }),
         success: function(result){
-            console.log(result)
+            if(result.code===1)
+            {
+                window.location.href = "/";
+            }
         },
      });
      return false;

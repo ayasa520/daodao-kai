@@ -10,6 +10,9 @@
 		"source": "/login",
 		"destination": "/static/login.html"
 	},{
+		"source": "/css/index.css",
+		"destination": "/static/css/index.css"
+	},{
 		"source": "/css/login.css",
 		"destination": "/static/css/login.css"
 	},{
