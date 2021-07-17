@@ -64,7 +64,7 @@ def create():
         new_content['_id'] = str(mycol.insert_one(new_content).inserted_id)
         return jsonify(new_content)
     else:
-        return redirect("/static/login.html")
+        return jsonify({'code': 0, 'msg': "未登录"})
 
 
 if __name__ == '__main__':
