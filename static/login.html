@@ -5,21 +5,50 @@
     <meta charset="UTF-8">
     <title>登录</title>
     <link rel="stylesheet" href="css/login.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="box">
         <h2>登录</h2>
-        <form action="http://localhost:5000/api/login" enctype="application / json" method="POST">
+        <form action="http://localhost:5000/api/login"  method="POST" onsubmit="return ajax_submit();">
             <div class="inputbox">
-                <input type="text" name="username" required="">
+                <input type="text" id="username" name="username" required="">
                 <label>用户名</label>
             </div>
             <div class="inputbox">
-                <input type="password" name="password" required="">
+                <input type="password" id="password" name="password" required="">
                 <label>密码</label>
             </div>
             <input type="submit" name="" value="确定">
         </form>
     </div>
+
 </body>
+<script> 
+    function ajax_submit(){
+        $.ajax({
+        type: 'POST',
+        url: 'http://localhost:5000/api/login',
+        dataType: 'json',
+        contentType: 'application/json;charset=UTF-8',
+        xhrFields: {
+            withCredentials: true
+        },
+        crossDomain: true,
+
+        data:JSON.stringify( {
+            "username": $("#username").val(),
+            "password": $("#password").val()
+        }),
+        success: function(result){
+            console.log(result)
+        },
+     });
+     return false;
+    }
+    ajax_submit();
+    </script>
 </html>
+
+
+

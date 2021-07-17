@@ -7,12 +7,13 @@ from flask import Flask, jsonify, request, session
 import pymongo
 import json
 import time
-
+from flask_cors import *
 from werkzeug.utils import redirect
 
 app = Flask(__name__)
+CORS(app, supports_credentials=True)
 app.config['SECRET_KEY'] = os.urandom(24)
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
+# app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 
 myclient = pymongo.MongoClient("mongodb://121.5.139.18:27017/")
 mydb = myclient["test"]
@@ -24,13 +25,12 @@ def login():
     if session.get('username'):
         return jsonify({'code': 1, 'msg': "已登录"})
     try:
-        username = request.form['username']
-        password = request.form['password']
-        myquery = {'username': username, 'password': password}
+        data = json.loads(request.get_data(as_text=True))
+        myquery = {'username': data['username'], 'password': data['password']}
     except:
         return jsonify({'code': 0, 'msg': "表单填写错误"})
     if len(list(mydb['config'].find(myquery))) != 0:
-        session['username'] = username
+        session['username'] = data['username']
         session.permanent = True
         return jsonify({'code': 1, 'msg': "登陆成功"})
     else:
