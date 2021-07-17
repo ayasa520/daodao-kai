@@ -7,5 +7,11 @@
 		"src": "/api(.*)",
 		"dest": "api/index.py",
 		"continue": true
+	},{
+		"src": "/",
+		"dest": "/static/index.html"
+	},{
+		"src": "/login",
+		"dest": "/static/login.html"
 	}]
 }
