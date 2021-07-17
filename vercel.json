@@ -1,15 +1,11 @@
 {
-    "version": 2,
-    "builds": [
-        {
-            "src": "./index.py",
-            "use": "@vercel/python"
-        }
-    ],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/"
-        }
-    ]
+	"version": 2,
+	"routes": [{
+		"headers": {
+			"Access-Control-Allow-Origin": "*"
+		},
+		"src": "/api(.*)",
+		"dest": "api/index.py",
+		"continue": true
+	}]
 }
