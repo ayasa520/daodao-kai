@@ -35,12 +35,12 @@
             xmlHttp.open("post","https://daodao-kai.vercel.app/api/create");
             xmlHttp.setRequestHeader("Content-type","application/json");
             xmlHttp.send(JSON.stringify({"content":document.getElementById('content').innerHTML,"from":"chrome"}));
-            xmlhttp.onreadystatechange=function()
+            xmlHttp.onreadystatechange=function()
             {
-                if (xmlHttp.readyState==4 && xmlhttp.status==200)
+                if (xmlHttp.readyState==4 && xmlHttp.status==200)
                 {
                     console.log(xmlHttp.responseText);
-                    if(xmlhttp.responseText.code===0)
+                    if(xmlHttp.responseText.code===0)
                     {
                         alert(xmlHttp.responseText.msg);
                     }
