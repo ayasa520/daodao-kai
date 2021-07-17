@@ -4,6 +4,9 @@
 		"source": "/api/(.*)",
 		"destination": "/api/index.py"
 	},{
+		"source": "/create",
+		"destination": "/static/create.html"
+	},{
 		"source": "/",
 		"destination": "/static/index.html"
 	},{
