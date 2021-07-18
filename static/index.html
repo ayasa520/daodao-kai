@@ -25,7 +25,7 @@
 
     <script id="model1" type="text/html">
     {{each list item index}}
-    <li class="item">
+    <li class="item" id={{item["_id"]}}>
         <div>
             <p class="datatime">{{item["date"]}}</p>
             <p class="datacont">

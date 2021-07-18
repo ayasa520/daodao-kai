@@ -7,7 +7,7 @@ from flask import Flask, jsonify, request, session
 import pymongo
 import json
 import time
-import  re
+import re
 from flask_cors import *
 from werkzeug.utils import redirect
 from markupsafe import escape
@@ -63,13 +63,12 @@ def create():
     if session.get("username"):
         new_content = json.loads(request.get_data(as_text=True))
 
-        if len(re.findall("<script>.*</script>",new_content["content"]))>0:
+        if len(re.findall("<script>.*</script>", new_content["content"])) > 0:
             new_content["content"] = escape(new_content["content"])
-
 
         new_content['date'] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         new_content['_id'] = str(mycol.insert_one(new_content).inserted_id)
-        return jsonify({"code":1,"msg":"创建成功","data":new_content})
+        return jsonify({"code": 1, "msg": "创建成功", "data": new_content})
     else:
         return jsonify({'code': 0, 'msg': "未登录"})
 

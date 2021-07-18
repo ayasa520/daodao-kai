@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <title>登录</title>
     <link rel="stylesheet" href="css/login.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="box">
@@ -25,28 +24,31 @@
 
 </body>
 <script> 
+    function $(id){
+        return document.getElementById(id);
+    }
     function ajax_submit(){
-        $.ajax({
-        type: 'POST',
-        url: 'https://daodao-kai.vercel.app/api/login',
-        dataType: 'json',
-        contentType: 'application/json;charset=UTF-8',
-        xhrFields: {
-            withCredentials: true
-        },
-        crossDomain: true,
 
-        data:JSON.stringify( {
-            "username": $("#username").val(),
-            "password": $("#password").val()
-        }),
-        success: function(result){
-            if(result.code===1)
+        xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("post","https://daodao-kai.vercel.app/api/login");
+        xmlHttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
+        xmlHttp.withCredentials = true;
+        xmlHttp.send(JSON.stringify({
+            "username": $("username").value,
+            "password": $("password").value
+        }));
+        xmlHttp.onreadystatechange=function()
+        {
+            if (xmlHttp.readyState==4 && xmlHttp.status==200)
             {
-                window.location.href = "/";
+                console.log(xmlHttp.responseText);
+                var result = JSON.parse(xmlHttp.responseText);
+                if(result["code"]===1){
+                   window.location.href = "/";
+                }
             }
-        },
-     });
+        }
+
      return false;
     }
     ajax_submit();
