@@ -65,7 +65,7 @@
                 JSON.stringify({
                     "content": marked(document.getElementsByClassName('Input_text')[0].value),
                     "from": getBrowserInfo(),
-                    "time": getDate()
+                    "date": getDate()
                 })
             );
             xmlHttp.onreadystatechange = function () {
