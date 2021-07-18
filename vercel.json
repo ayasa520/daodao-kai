@@ -13,16 +13,11 @@
 		"source": "/create",
 		"destination": "/static/create.html"
 	},{
-		"source": "/css/index.css",
-		"destination": "/static/css/index.css"
-	},{
-		"source": "/css/login.css",
-		"destination": "/static/css/login.css"
-	},{
-		"source": "/css/create.css",
-		"destination": "/static/css/create.css"
-	},{
-		"source": "/js/login.js",
-		"destination": "/static/js/login.js"
+		"source": "/css/:path*",
+		"destination": "/static/css/:path*"
+	},
+	{
+		"source": "/js/:path*",
+		"destination": "/static/js/:path*"
 	}]
 }
