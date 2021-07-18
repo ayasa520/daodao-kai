@@ -1,5 +1,6 @@
 click==8.0.1
 colorama==0.4.4
+dnspython==1.16.0
 Flask==1.1.2
 Flask-Cors==3.0.10
 importlib-metadata==4.6.1

@@ -2,7 +2,10 @@
 # 这里的路由也是需要写上 /api 的
 
 import os
+import urllib
 from datetime import timedelta
+import os
+import sys
 from flask import Flask, jsonify, request, session
 import pymongo
 import json
@@ -17,7 +20,8 @@ CORS(app, supports_credentials=True)
 app.config['SECRET_KEY'] = os.urandom(24)
 # app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 
-myclient = pymongo.MongoClient("mongodb://121.5.139.18:27017/")
+# url='mongodb://%s:%s@%s' % ("rikka",urllib.quote_plus( "P@55w0rd"), "cluster0.fznke.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+myclient = pymongo.MongoClient(os.environ['MONGODB'])
 mydb = myclient["test"]
 mycol = mydb["test"]
 
