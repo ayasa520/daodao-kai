@@ -16,41 +16,66 @@
         <div class="Input_Box">
             <textarea class="Input_text"></textarea>
             <div class="faceDiv"> </div>
-            <div class="Input_Foot" >
+            <div class="Input_Foot">
                 <button class="postBtn" onclick="preview()">预览</button>
                 <button class="postBtn" onclick="create()">发布</button>
 
-             </div>
+            </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
+        Date.prototype.Format = function (fmt) { //javascript时间日期函数
+            var o = {
+                "M+": this.getMonth() + 1, //月份 
+                "d+": this.getDate(), //日 
+                "h+": this.getHours(), //小时 
+                "m+": this.getMinutes(), //分 
+                "s+": this.getSeconds(), //秒 
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+                "S": this.getMilliseconds() //毫秒 
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        };
+
+        function getDate() {
+            return time2 = new Date().Format("yyyy-MM-dd hh:mm:ss");
+        }
+        function getBrowserInfo() {
+            var ua = navigator.userAgent;
+            var m = ua.split(" ");
+            return m[m.length - 1];
+        }
         function preview() {
             document.getElementById('content').innerHTML =
-            marked(document.getElementsByClassName('Input_text')[0].value);
+                marked(document.getElementsByClassName('Input_text')[0].value);
         }
-        function create(){
-            if (document.getElementsByClassName('Input_text')[0].value==="")
-            {
+        function create() {
+            if (document.getElementsByClassName('Input_text')[0].value === "") {
                 return 0;
             }
             xmlHttp = new XMLHttpRequest();
-            xmlHttp.open("post","https://daodao-kai.vercel.app/api/create");
-            xmlHttp.setRequestHeader("Content-type","application/json");
-            xmlHttp.send(JSON.stringify({"content":marked(document.getElementsByClassName('Input_text')[0].value),"from":"chrome"}));
-            xmlHttp.onreadystatechange=function()
-            {
-                if (xmlHttp.readyState==4 && xmlHttp.status==200)
-                {
+            xmlHttp.open("post", "https://daodao-kai.vercel.app/api/create");
+            xmlHttp.setRequestHeader("Content-type", "application/json");
+            xmlHttp.send(
+                JSON.stringify({
+                    "content": marked(document.getElementsByClassName('Input_text')[0].value),
+                    "from": getBrowserInfo(),
+                    "time": getDate()
+                })
+            );
+            xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
                     console.log(xmlHttp.responseText);
                     var result = JSON.parse(xmlHttp.responseText);
-                        alert(result["msg"]);
+                    alert(result["msg"]);
                 }
             }
         }
-
-
     </script>
 </body>
 

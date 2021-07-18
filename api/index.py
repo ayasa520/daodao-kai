@@ -66,7 +66,7 @@ def create():
         if len(re.findall("<script>.*</script>", new_content["content"])) > 0:
             new_content["content"] = escape(new_content["content"])
 
-        new_content['date'] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        # new_content['date'] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         new_content['_id'] = str(mycol.insert_one(new_content).inserted_id)
         return jsonify({"code": 1, "msg": "创建成功", "data": new_content})
     else:
