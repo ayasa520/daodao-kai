@@ -8,25 +8,19 @@
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <title>首页</title>
 </head>
-
 <body>
     <div id="bber">
         <section class="timeline page-1">
-            <ul>
                 <div class="list" id="bbitems">
                 </div>
-            </ul>
         </section>
     </div>
 
     </div>
     <script src="https://unpkg.com/art-template@4.13.2/lib/template-web.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script id="model1" type="text/html">
+    <script id="template" type="text/html">
     {{each list item index}}
-    <li class="item" id={{item["_id"]}}>
-        <div>
+    <div class="item" id={{item["_id"]}}>
             <p class="datatime">{{item["date"]}}</p>
             <p class="datacont">
                 {{@item["content"]}}
@@ -35,26 +29,29 @@
                 <small><i class="fas fa-tools"></i>{{item["from"]}}</small>
             </p>
         </div>
-    </li>
     {{/each}}
     </script>
     <script>
-        $(function () {
+        function $(id){
+            return document.getElementById(id);
+        }
             // var data1 = [
             //     {"time":"2010-10-10", "content": "<p>Mr.bring</p>", "from": "edge" },
             //     {"time":"2010-10-10", "content": "<span>asdasd</span>", "from": "chrome" }
             // ]
-            $.ajax({
-                type: 'GET',
-                url: 'https://daodao-kai.vercel.app/api/query/20',
-                dataType: 'json',
-                success: function (result) {
-                    var html = template('model1', { list: result })
-                    $("#bbitems").append(html)
+            xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("get","https://daodao-kai.vercel.app/api/query/20");
+            xmlHttp.send(null);
+            xmlHttp.onreadystatechange=function()
+            {
+                if (xmlHttp.readyState==4 && xmlHttp.status==200)
+                {
+                    console.log(xmlHttp.responseText);
+                    var result = JSON.parse(xmlHttp.responseText);
+                    var html = template('template', { list: result })
+                    $("bbitems").innerHTML = html;
                 }
-            })
-
-        })</script>
+            }
+        </script>
 </body>
-
 </html>
