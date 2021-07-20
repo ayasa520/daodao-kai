@@ -1,60 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
+<link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/gh/ayasa520/daodao-kai@main/static/css/index.css" />
+<div id="bber">
+</div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../static/css/index.css" />
-    <title>Document</title>
-</head>
-
-<body>
-    <div id="bber">
-        <section class="timeline page-1">
-            <ul>
-                <div class="list" id="bbitems">
-                </div>
-            </ul>
-        </section>
-    </div>
-
-    </div>
-    <script src="https://unpkg.com/art-template@4.13.2/lib/template-web.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script id="model1" type="text/html">
-    {{each list item index}}
-    <li class="item">
-        <div>
-            <p class="datatime">{{item["date"]}}</p>
-            <p class="datacont">
-                {{@item["content"]}}
-            </p>
-            <p class="datafrom">
-                <small><i class="fas fa-tools"></i>{{item["from"]}}</small>
-            </p>
-        </div>
-    </li>
-    {{/each}}
-    </script>
-    <script>
-        $(function () {
-            // var data1 = [
-            //     {"time":"2010-10-10", "content": "<p>Mr.bring</p>", "from": "edge" },
-            //     {"time":"2010-10-10", "content": "<span>asdasd</span>", "from": "chrome" }
-            // ]
-            $.ajax({
-                type: 'GET',
-                url: 'https://daodao-kai.vercel.app/api/query/20',
-                dataType: 'json',
-                success: function (result) {
-                    var html = template('model1', { list: result })
-                    $("#bbitems").append(html)
-                }
-            })
-
-        })</script>
-</body>
-
-</html>
+<script src="https://unpkg.com/art-template@4.13.2/lib/template-web.js"></script>
+<script>
+function Daodaoplus(url) {
+    this.url = url;
+    this.init = function () {
+        var temp = document.createElement('script');
+        temp.id = "template";
+        temp.type = "text/html";
+        temp.innerHTML = "<section class=\"timeline page-1\"><div class=\"list\" id=\"bbitems\">{{each list item index}}<div class=\"item\" id={{item[\"_id\"]}}><p class=\"datatime\">{{item[\"date\"]}}</p><p class=\"datacont\">{{@item[\"content\"]}}</p><p class=\"datafrom\"><small><i class=\"fas fa-tools\"></i>{{item[\"from\"]}}</small></p></div>{{/each}}</div></section>"
+        document.body.appendChild(temp);
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("get", this.url);
+        xmlHttp.send(null);
+        xmlHttp.onreadystatechange = function () {
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                console.log(xmlHttp.responseText);
+                var result = JSON.parse(xmlHttp.responseText);
+                var html = template('template', { list: result })
+                document.getElementById("bber").innerHTML = html;
+            }
+        }
+    }
+}
+var daodao = new Daodaoplus("https://daodao-kai.vercel.app/api/query/20");
+daodao.init();
+</script>
