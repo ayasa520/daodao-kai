@@ -55,7 +55,7 @@ function generateBBHtml(array, options) {
     }
     for (let i = 0; i < array_list_num; i++) {
         var flag_daodao = true
-        for (let item of options.fliter_daodao) {
+        for (let item of options.filter_daodao) {
             if (array[i].content.indexOf(item) >= 0) {
                 flag_daodao = false
             }

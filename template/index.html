@@ -1,31 +1,22 @@
-<link rel="stylesheet" type="text/css"
-    href="https://cdn.jsdelivr.net/gh/ayasa520/daodao-kai@main/static/css/index.css" />
-<div id="bber">
-</div>
-
-<script src="https://unpkg.com/art-template@4.13.2/lib/template-web.js"></script>
-<script>
-function Daodaoplus(url) {
-    this.url = url;
-    this.init = function () {
-        var temp = document.createElement('script');
-        temp.id = "template";
-        temp.type = "text/html";
-        temp.innerHTML = "<section class=\"timeline page-1\"><div class=\"list\" id=\"bbitems\">{{each list item index}}<div class=\"item\" id={{item[\"_id\"]}}><p class=\"datatime\">{{item[\"date\"]}}</p><p class=\"datacont\">{{@item[\"content\"]}}</p><p class=\"datafrom\"><small><i class=\"fas fa-tools\"></i>{{item[\"from\"]}}</small></p></div>{{/each}}</div></section>"
-        document.body.appendChild(temp);
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("get", this.url);
-        xmlHttp.send(null);
-        xmlHttp.onreadystatechange = function () {
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-                console.log(xmlHttp.responseText);
-                var result = JSON.parse(xmlHttp.responseText);
-                var html = template('template', { list: result })
-                document.getElementById("bber").innerHTML = html;
-            }
-        }
+<script data-pjax>
+    function ${name}_injector_config(){
+        var daodao_url = ${item_config.url};
+        var bbpath = /${item_config.path}/;
+        var filter = '${item_config.filter}';
+        var parent_div_git = ${get_layout};
+        var item_html =  '${temple_html_text}';
+        console.log('已挂载${name}')
+        parent_div_git.insertAdjacentHTML("afterbegin",item_html) 
+        daodao_card_init(daodao_url,{"bbpath":bbpath,"filter":filter})
     }
-}
-var daodao = new Daodaoplus("https://daodao-kai.vercel.app/api/query/20");
-daodao.init();
-</script>
+    if( ${get_layout} && (location.pathname ==='${item_config.enable_page}')){
+        if (typeof daodao_card_init === 'function'){
+            ${name}_injector_config()
+        }else{
+            getScript('https://cdn.jsdelivr.net/gh/ayasa520/daodao-kai@0.3.1/daodaomain.js').then(${name}_injector_config());
+        }
+    }</script>
+
+
+
+
