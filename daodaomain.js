@@ -1,18 +1,18 @@
-function get_data(url, callback,extra) {
+function get_data(url, callback, extra) {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("get", url);
     xmlHttp.send(null);
     xmlHttp.onreadystatechange = function () {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-            if(extra)
-                callback(JSON.parse(xmlHttp.responseText),extra);
+            if (extra)
+                callback(JSON.parse(xmlHttp.responseText), extra);
             else
                 callback(JSON.parse(xmlHttp.responseText));
         }
     }
 }
 
-function daodao_page_init(url, template_html) {
+function daodao_page_init(url, template_html, extra) {
     get_data(url, function (data) {
         if (!document.getElementById('daodao_template')) {
             var temp = document.createElement('script');
@@ -21,24 +21,30 @@ function daodao_page_init(url, template_html) {
             temp.innerHTML = template_html;
             document.body.appendChild(temp);
         }
-        if(template!=='function'){
-            getScript('https://unpkg.zhimg.com/art-template@4.13.2/lib/template-web.js').then(){
-                var html = template('daodao_template', { list: data });
-                var sec = document.createElement('section');
-                sec.className = "timeline page-1";
-                sec.innerHTML = html;
-                document.getElementById("bber").appendChild(sec);
-            }
+        function generate_daodao_html () {
+            var html = template('daodao_template', { list: data });
+            var sec = document.createElement('section');
+            sec.className = "timeline page-1";
+            sec.innerHTML = html;
+            document.getElementById("bber").appendChild(sec);
+            if(extra)
+                extra();
+        }
+        if (template !== 'function') {
+            getScript('https://unpkg.zhimg.com/art-template@4.13.2/lib/template-web.js').then(
+                generate_daodao_html  )
+        }else{
+            generate_daodao_html();
         }
     })
 }
 
-function daodao_card_init(url,options) {
+function daodao_card_init(url, options) {
     get_data(url, generateBBHtml, options);
 }
 
 
-function generateBBHtml(array,options) {
+function generateBBHtml(array, options) {
     var bbdom = document.querySelector('#bber-talk');
     var result = '';
     let array_list_num;
