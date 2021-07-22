@@ -47,7 +47,7 @@ function create() {
     }
     var ua = getBrowserInfo();
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("post", "api/create");
+    xmlHttp.open("post", "/api/create");
     xmlHttp.setRequestHeader("Content-type", "application/json");
     xmlHttp.send(
         JSON.stringify({

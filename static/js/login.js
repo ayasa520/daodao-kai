@@ -4,7 +4,7 @@ function $(id){
 function ajax_submit(){
 
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("post","api/login");
+    xmlHttp.open("post","/api/login");
     xmlHttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
     xmlHttp.withCredentials = true;
     xmlHttp.send(JSON.stringify({

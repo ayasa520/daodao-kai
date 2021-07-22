@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!--此页面来源于 https://www.cnblogs.com/nyw1983/p/11406387.html-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <div class="box">
+        <h2>登录</h2>
+        <form action="/api/login"  method="POST" onsubmit="return ajax_submit();">
+            <div class="inputbox">
+                <input type="text" id="username" name="username" required="">
+                <label>用户名</label>
+            </div>
+            <div class="inputbox">
+                <input type="password" id="password" name="password" required="">
+                <label>密码</label>
+            </div>
+            <input type="submit" name="" value="确定">
+        </form>
+    </div>
+
+</body>
+<script defer src="/js/login.js"></script>
+</html>
+
+
+
