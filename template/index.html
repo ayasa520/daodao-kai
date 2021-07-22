@@ -7,7 +7,7 @@
         var item_html =  '${temple_html_text}';
         console.log('已挂载${name}')
         parent_div_git.insertAdjacentHTML("afterbegin",item_html) 
-        daodao_card_init(daodao_url,{"bbpath":bbpath,"filter":filter})
+        daodao_card_init(daodao_url,{"bbpath":bbpath,"filter_daodao":filter})
     }
     if( ${get_layout} && (location.pathname ==='${item_config.enable_page}')){
         if (typeof daodao_card_init === 'function'){

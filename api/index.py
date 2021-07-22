@@ -3,10 +3,12 @@
 
 import os
 import urllib
+from dataclasses import dataclass
+from bson import ObjectId
 from datetime import timedelta
 import os
 import sys
-from flask import Flask, jsonify, request, session
+from flask import Flask, jsonify, request, session, g
 import pymongo
 import json
 import time
@@ -22,20 +24,41 @@ app.config['SECRET_KEY'] = os.urandom(24)
 
 # url='mongodb://%s:%s@%s' % ("rikka",urllib.quote_plus( "P@55w0rd"), "cluster0.fznke.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 myclient = pymongo.MongoClient(os.environ['MONGODB'])
+
 mydb = myclient["test"]
 mycol = mydb["test"]
 
 
+@dataclass
+class User:
+    username: str
+    password: str
+
+
+users = [
+    User(os.environ["USERNAME"], os.environ["PASSWORD"])
+]
+
+
+@app.before_request
+def before_request():
+    g.user = None
+    if session.get('username'):
+        g.user = [u for u in users if u.username == session['username']][0]
+
+
 @app.route('/api/login', methods=['post'])
 def login():
-    if session.get('username'):
+    if g.user:
         return jsonify({'code': 1, 'msg': "已登录"})
     try:
         data = json.loads(request.get_data(as_text=True))
         # myquery = {'username': data['username'], 'password': data['password']}
-    except:
+    except Exception as e:
+        print(e)
         return jsonify({'code': 0, 'msg': "表单填写错误"})
-    if os.environ['USERNAME'] == data['username'] and os.environ['PASSWORD'] == data['password']:
+    user = [u for u in users if u.username == data['username']]
+    if len(user) > 0 and user[0].password == data['password']:
         session['username'] = data['username']
         session.permanent = True
         return jsonify({'code': 1, 'msg': "登陆成功"})
@@ -45,9 +68,25 @@ def login():
 
 @app.route('/api/logout', methods=['get'])
 def logout():
-    if session.get('username'):
+    if g.user:
         session['username'] = False
         return jsonify({'code': 1, 'msg': "退出登录"})
+    else:
+        return jsonify({'code': 0, 'msg': "未登录"})
+
+
+@app.route('/api/del', methods=['post'])
+def delete():
+    if g.user:
+        try:
+            data = json.loads(request.get_data(as_text=True))
+            result = mycol.delete_one({"_id": ObjectId(data['id'])})
+            if result.deleted_count:
+                return jsonify({'code': 1, 'msg': "删除成功"})
+            else:
+                return jsonify({'code': 0, 'msg': "删除失败"})
+        except:
+            return jsonify({'code': 0, 'msg': "表单错误"})
     else:
         return jsonify({'code': 0, 'msg': "未登录"})
 
