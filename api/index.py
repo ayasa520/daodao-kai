@@ -23,8 +23,8 @@ app.config['SECRET_KEY'] = os.urandom(24)
 # app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 
 # url='mongodb://%s:%s@%s' % ("rikka",urllib.quote_plus( "P@55w0rd"), "cluster0.fznke.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-myclient = pymongo.MongoClient(os.environ['MONGODB'])
-
+# myclient = pymongo.MongoClient(os.environ['MONGODB'])
+myclient = pymongo.MongoClient("mongodb://root:misaka@121.5.139.18:27017")
 mydb = myclient["test"]
 mycol = mydb["test"]
 
@@ -36,7 +36,7 @@ class User:
 
 
 users = [
-    User(os.environ["USERNAME"], os.environ["PASSWORD"])
+    User("Rikka", "cuide5942b")
 ]
 
 

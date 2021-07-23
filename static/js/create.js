@@ -38,7 +38,7 @@ function getBrowserInfo() {
     return { broswer: "", version: "0" };
 }
 function preview() {
-    document.getElementById('content').innerHTML =
+    document.getElementById('createContent').innerHTML =
         marked(document.getElementsByClassName('Input_text')[0].value);
 }
 function create() {

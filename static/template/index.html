@@ -1,370 +1,98 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="zh">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/css/index.css">
-    <title>首页</title>
-</head>
-<style>
-    #bber .item .delete_right{
-        cursor: pointer;
-    width: 12px;
-    height: 12px;
-    position: absolute;
-    right: 12px;
-        display: none;
-    }
-    #bber .item:hover .delete_right{
-        display: inline-block;
-    }
+    <link rel="stylesheet" type="text/css" href="/css/login.css" />
 
-</style>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js点击弹窗弹出登录框代码</title>
+</head>
 
 <body>
-    <div id="bber">
-        <section class="timeline page-1">
-            <div class="list" id="bbitems">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
 
-                <div class="item" id="60f977a1777de3605c718638">
-                    <div id="del60dec25add0bc82ed8988f04" class="delete_right"><svg t="1591347978744"
-                            viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="14459"
-                            width="20" height="20" style="display: inline"
-                            onclick="alert('okok')">
-                            <path
-                                d="M512 883.2A371.2 371.2 0 1 0 140.8 512 371.2 371.2 0 0 0 512 883.2z m0 64a435.2 435.2 0 1 1 435.2-435.2 435.2 435.2 0 0 1-435.2 435.2z"
-                                p-id="14460" fill="#000"></path>
-                            <path
-                                d="M557.056 512l122.368 122.368a31.744 31.744 0 1 1-45.056 45.056L512 557.056l-122.368 122.368a31.744 31.744 0 1 1-45.056-45.056L466.944 512 344.576 389.632a31.744 31.744 0 1 1 45.056-45.056L512 466.944l122.368-122.368a31.744 31.744 0 1 1 45.056 45.056z"
-                                p-id="14461" fill="#000"></path>
-                        </svg>
-                    </div>
+        button,
+        input {
+            outline: none;
+        }
 
-                    <p class="datatime">2010-10-10</p>
-                    <p class="datacont">
-                        Rikka
-                    </p>
-                    <p class="datafrom">
-                        <small><i class="fas fa-tools"></i>postman</small>
-                    </p>
+        button,
+        .login {
+            width: 120px;
+            height: 42px;
+            background: #f40;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            display: block;
+            margin: 20px auto;
+            cursor: pointer;
+        }
+
+        .popOutBg {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: rgba(0, 0, 0, .6);
+            display: none;
+        }
+
+        .popOut {
+            position: fixed;
+            width: 450px;
+            height: 300px;
+            top: 50%;
+            left: 50%;
+            margin-top: -150px;
+            margin-left: -235px;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .popOut .logoff {
+            position: absolute;
+            right: 10px;
+            top: 20px;
+            height: 42px;
+            line-height: 42px;
+            color: rgb(255, 255, 255);
+            font-size: 30px;
+            cursor: pointer;
+        }
+    </style>
+    <button type="button">登录</button>
+    <div class="popOutBg"></div>
+    <div class="popOut">
+        <div class="box">
+            <span class="logoff" title="关闭"> x </span>
+
+            <h2>登录</h2>
+            <form action="/api/login" method="POST" onsubmit="return ajax_submit();">
+                <div class="inputbox">
+                    <input type="text" id="username" name="username" required="">
+                    <label>用户名</label>
                 </div>
-
-                <div class="item" id="60f8c8af0c0a2ac08e1a2f0e">
-                    <p class="datatime">2021-07-22 09:23:57</p>
-                    <p class="datacont">
-                    </p>
-                    <p>未登录</p>
-
-                    <p></p>
-                    <p class="datafrom">
-                        <small><i class="fas fa-tools"></i>Edge/92.0.902.49</small>
-                    </p>
+                <div class="inputbox">
+                    <input type="password" id="password" name="password" required="">
+                    <label>密码</label>
                 </div>
-
-                <div class="item" id="60f846a40c0a2ac08e1a2f06">
-                    <p class="datatime">2021-07-22 00:09:08</p>
-                    <p class="datacont">
-                    </p>
-                    <p>登录好像有问题吗?</p>
-
-                    <p></p>
-                    <p class="datafrom">
-                        <small><i class="fas fa-tools"></i>Edge/92.0.902.49</small>
-                    </p>
-                </div>
-
-                <div class="item" id="60f846860c0a2ac08e1a2f05">
-                    <p class="datatime">2021-07-22 00:08:37</p>
-                    <p class="datacont">
-                    </p>
-                    <p>将 叨叨·改 部署在了服务器上，比 vercel 是稳定多了。为什么不用云函数呢？因为我不会</p>
-
-                    <p></p>
-                    <p class="datafrom">
-                        <small><i class="fas fa-tools"></i>Edge/92.0.902.49</small>
-                    </p>
-                </div>
-
-                <div class="item" id="60f6f6a9d5f8931f419b05bf">
-                    <p class="datatime">2021-07-21 00:15:36</p>
-                    <p class="datacont">
-                    </p>
-                    <p>叨叨改基本写完了，基本的功能都实现了，还差一个删除. 后端不用多大劲就写好了，前端实在写着痛苦啊</p>
-
-                    <p></p>
-                    <p class="datafrom">
-                        <small><i class="fas fa-tools"></i>Edge/92.0.902.49</small>
-                    </p>
-                </div>
-
-                <div class="item" id="60f4f5d4332e0efcfcd13f2a">
-                    <p class="datatime">2021-07-19 11:47:31</p>
-                    <p class="datacont">
-                    </p>
-                    <p>怎么发了两个？</p>
-
-                    <p></p>
-                    <p class="datafrom">
-                        <small><i class="fas fa-tools"></i>Chrome/89.0.4389.82</small>
-                    </p>
-                </div>
-
-                <div class="item" id="60f4f57e332e0efcfcd13f29">
-                    <p class="datatime">2021-07-19 11:46:05</p>
-                    <p class="datacont">
-                    </p>
-                    <p>首先学习一下 pug</p>
-
-                    <p></p>
-                    <p class="datafrom">
-                        <small><i class="fas fa-tools"></i>Edge/92.0.902.49</small>
-                    </p>
-                </div>
-
-                <div class="item" id="60f4f56a332e0efcfcd13f28">
-                    <p class="datatime">2021-07-19 11:45:45</p>
-                    <p class="datacont">
-                    </p>
-                    <p>首先学习一下 pug</p>
-
-                    <p></p>
-                    <p class="datafrom">
-                        <small><i class="fas fa-tools"></i>Edge/92.0.902.49</small>
-                    </p>
-                </div>
-
-                <div class="item" id="60f472546fdf23b743f184ee">
-                    <p class="datatime">2021-07-19 02:26:27</p>
-                    <p class="datacont">
-                    </p>
-                    <p>手机测试发</p>
-
-                    <p></p>
-                    <p class="datafrom">
-                        <small><i class="fas fa-tools"></i>Chrome/88.0.4324.93</small>
-                    </p>
-                </div>
-
-                <div class="item" id="60f417fe611d4332c4ba3af1">
-                    <p class="datatime">2021-07-18 20:01:01</p>
-                    <p class="datacont">
-                    </p>
-                    <p><img src="https://cdn.jsdelivr.net/gh/ayasa520/img@main/Snipaste_2021-05-31_14-39-19.png"
-                            alt="图片测试"></p>
-
-                    <p></p>
-                    <p class="datafrom">
-                        <small><i class="fas fa-tools"></i>Edge/92.0.902.49</small>
-                    </p>
-                </div>
-
-                <div class="item" id="60f41506611d4332c4ba3af0">
-                    <p class="datatime">2021-07-18 19:48:22</p>
-                    <p class="datacont">
-                    </p>
-                    <p>hexo 要用的话，还得再完善</p>
-
-                    <p></p>
-                    <p class="datafrom">
-                        <small><i class="fas fa-tools"></i>Edge/92.0.902.49</small>
-                    </p>
-                </div>
-
-                <div class="item" id="60f40ccf7445ca1d896f4240">
-                    <p class="datatime">2021-07-18 19:13:19</p>
-                    <p class="datacont">
-                    </p>
-                    <p>api 使用相对链接访问也是行得通的</p>
-
-                    <p></p>
-                    <p class="datafrom">
-                        <small><i class="fas fa-tools"></i>Edge/92.0.902.49</small>
-                    </p>
-                </div>
-
-                <div class="item" id="60f406cc49ad97a087bde37a">
-                    <p class="datatime">2021-07-18 18:47:39</p>
-                    <p class="datacont">
-                    </p>
-                    <p>dsfsdfsdf</p>
-
-                    <p></p>
-                    <p class="datafrom">
-                        <small><i class="fas fa-tools"></i>Edge/92.0.902.49</small>
-                    </p>
-                </div>
-
-                <div class="item" id="60f3f613d86bf2fb51160fd1">
-                    <p class="datatime">2021-07-18 17:36:18</p>
-                    <p class="datacont">
-                    </p>
-                    <p>sadasd</p>
-
-                    <p></p>
-                    <p class="datafrom">
-                        <small><i class="fas fa-tools"></i>Edge/92.0.902.49</small>
-                    </p>
-                </div>
-
-                <div class="item" id="60f3f5c4d86bf2fb51160fd0">
-                    <p class="datatime">2021-07-18 17:35:00</p>
-                    <p class="datacont">
-                    </p>
-                    <p>rewrite</p>
-
-                    <p></p>
-                    <p class="datafrom">
-                        <small><i class="fas fa-tools"></i>Edge/92.0.902.49</small>
-                    </p>
-                </div>
-
-                <div class="item" id="60f3f0eb0b8180fb855c6c0d">
-                    <p class="datatime">2021-07-18 17:14:18</p>
-                    <p class="datacont">
-                    </p>
-                    <p>你哈</p>
-
-                    <p></p>
-                    <p class="datafrom">
-                        <small><i class="fas fa-tools"></i>Edge/92.0.902.49</small>
-                    </p>
-                </div>
-
-                <div class="item" id="60f3f0830b8180fb855c6c0c">
-                    <p class="datatime">2021-07-18 17:12:34</p>
-                    <p class="datacont">
-                    </p>
-                    <p>ua</p>
-
-                    <p></p>
-                    <p class="datafrom">
-                        <small><i class="fas fa-tools"></i>Chrome/89.0.4389.82</small>
-                    </p>
-                </div>
-
-                <div class="item" id="60f3e938522e6c37a5501b2a">
-                    <p class="datatime">2021-07-18 16:41:28</p>
-                    <p class="datacont">
-                    </p>
-                    <p>ua</p>
-
-                    <p></p>
-                    <p class="datafrom">
-                        <small><i class="fas fa-tools"></i>Safari/537.36</small>
-                    </p>
-                </div>
-
-                <div class="item" id="60f3e91a522e6c37a5501b29">
-                    <p class="datatime">2021-07-18 16:40:58</p>
-                    <p class="datacont">
-                    </p>
-                    <p>ua</p>
-
-                    <p></p>
-                    <p class="datafrom">
-                        <small><i class="fas fa-tools"></i>Safari/537.36</small>
-                    </p>
-                </div>
-
-                <div class="item" id="60f3e8f1522e6c37a5501b28">
-                    <p class="datatime">2021-07-18 16:40:17</p>
-                    <p class="datacont">
-                    </p>
-                    <p>时间</p>
-
-                    <p></p>
-                    <p class="datafrom">
-                        <small><i class="fas fa-tools"></i>Edg/92.0.902.49</small>
-                    </p>
-                </div>
-
-            </div>
-        </section>
-    </div>
-
-
-
-
-    <script src="https://unpkg.com/art-template@4.13.2/lib/template-web.js"></script>
-    <remove-web-limits-iqxin id="rwl-iqxin" class="rwl-exempt" style="position: fixed; top: 270px; left: 0px;">
-        <qxinbutton type="qxinbutton" id="rwl-setbtn"> set </qxinbutton>
-        <lalala style="cursor:move; font-size:12px;">限制解除</lalala> <input type="checkbox" name="" id="black_node">
-        <style type="text/css">
-            #rwl-iqxin {
-                position: fixed;
-                transform: translate(-95px, 0);
-                width: 85px;
-                height: 25px;
-                font-size: 12px;
-                font-weight: 500;
-                font-family: Verdana, Arial, '宋体';
-                color: #fff;
-                background: #333;
-                z-index: 2147483647;
-                margin: 0;
-                opacity: 0.05;
-                transition: 0.3s;
-                overflow: hidden;
-                user-select: none;
-                text-align: center;
-                white-space: nowrap;
-                line-height: 25px;
-                padding: 0 16px;
-                border: 1px solid #ccc;
-                border-width: 1px 1px 1px 0;
-                border-bottom-right-radius: 5px;
-                box-sizing: content-box;
-            }
-
-            #rwl-iqxin input {
-                margin: 0;
-                padding: 0;
-                vertical-align: middle;
-                -webkit-appearance: checkbox;
-                -moz-appearance: checkbox;
-                position: static;
-                clip: auto;
-                opacity: 1;
-                cursor: pointer;
-            }
-
-            #rwl-iqxin.rwl-active-iqxin {
-                left: 0px;
-                transform: translate(0, 0);
-                opacity: 0.9;
-                height: 32px;
-                line-height: 32px
-            }
-
-            #rwl-iqxin label {
-                margin: 0;
-                padding: 0;
-                font-weight: 500;
-            }
-
-            #rwl-iqxin #rwl-setbtn {
-                margin: 0 4px 0 0;
-                padding: 0 0 0 4px;
-                border: none;
-                border-radius: 2px;
-                cursor: pointer;
-                background: #fff;
-                color: #000;
-            }
-        </style>
-    </remove-web-limits-iqxin>
-    <script id="template" type="text/html">
-        {{each list item index}}
-        <div class="item" id={{item["_id"]}}>
-            <p class="datatime">{{item["date"]}}</p>
-            <p class="datacont">
-                {{@item["content"]}}
-            </p>
-            <p class="datafrom">
-                <small><i class="fas fa-tools"></i>{{item["from"]}}</small>
-            </p>
+                <input type="submit" name="" value="确定">
+            </form>
         </div>
-    {{/each}}
+    </div>
+    <script type="text/javascript">
+
     </script>
-    <script defer="" src="js/index.js"></script>
+</body>
+
+</html>
