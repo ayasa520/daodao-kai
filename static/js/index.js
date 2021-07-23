@@ -156,10 +156,11 @@ function Daodao(url, cnt) {
             "date": getDate()
         }), function (result) {
             console.log(result);
-            document.getElementsByClassName('Input_text')[0].value = "";
             alert(result.msg);
-            mySelector(".popOutBg").click();
-            daodao.init();
+            if(result.code)
+            {document.getElementsByClassName('Input_text')[0].value = "";mySelector(".popOutBg").click();
+            daodao.init();}
+            
         })
 
     }
@@ -179,5 +180,9 @@ function Daodao(url, cnt) {
         }
     }
 }
+
+
+const daodao = new Daodao('http://localhost:5000',23)
+daodao.init()
 
 
