@@ -1,3 +1,20 @@
+if(typeof getScript !== "function")
+    win.getScript = url => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(script)
+      })
+if(typeof template !== "function")
+      getScript("https://unpkg.com/art-template@4.13.2/lib/template-web.js");
+
 
 Date.prototype.Format = function (fmt) { //javascript时间日期函数
     var o = {
@@ -182,7 +199,5 @@ function Daodao(url, cnt) {
 }
 
 
-const daodao = new Daodao('http://localhost:5000',23)
-daodao.init()
 
 
