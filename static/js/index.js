@@ -83,7 +83,9 @@ function makeData() {
     return getData;
 
 }
-const dataGetter = makeData();
+if(typeof dataGetter!=="function"){
+     window.dataGetter = makeData();
+}
 
 //app, 显示数量
 function Daodao(url, cnt) {
