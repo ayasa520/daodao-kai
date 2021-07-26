@@ -272,3 +272,14 @@ right: 12px!important;
 .createbox{
     display: none;
 }
+#bber {
+    width: 100%;
+    height: 240px;
+}
+
+#ddloading svg {
+    width: 200px;
+    height: 200px;
+    margin: 20px;
+    display: inline-block;
+}

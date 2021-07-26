@@ -1,5 +1,5 @@
 if(typeof getScript !== "function")
-    win.getScript = url => new Promise((resolve, reject) => {
+    window.getScript = url => new Promise((resolve, reject) => {
         const script = document.createElement('script')
         script.src = url
         script.async = true
@@ -95,6 +95,7 @@ function Daodao(url, cnt) {
             console.log(result);
             var html = template('template', { list: result })
             mySelector("#bbitems").innerHTML = html;
+            document.getElementById("ddloading").style.display = none;
             Array.from(document.getElementsByClassName("delete_right")).forEach(
                 (el) => {
                     el.addEventListener("click", function () {
