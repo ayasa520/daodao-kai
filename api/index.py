@@ -97,7 +97,12 @@ def query(q):
     result = list(mycol.find().sort([("_id", -1)]).limit(int(q)))
     for each in result:
         each['_id'] = str(each['_id'])
-    return jsonify(result)
+
+    islogin = 0
+    if g.user:
+        islogin = 1
+
+    return jsonify({"login": islogin, "data": result})
 
 
 # 返回最新创建的

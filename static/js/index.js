@@ -93,13 +93,18 @@ function Daodao(url, cnt) {
     this.init = function () {
         dataGetter("get", `${this.url}/api/query/${this.cnt}`, null, function (result) {
             console.log(result);
-            var html = template('template', { list: result })
+            daodao.logined = result.login;
+            var html = template('template', { list: result.data })
             mySelector("#bbitems").innerHTML = html;
-            document.getElementById("ddloading").style.display = none;
+            document.getElementById("ddloading").style.display = "none";
             Array.from(document.getElementsByClassName("delete_right")).forEach(
                 (el) => {
                     el.addEventListener("click", function () {
-                        daodao.delOne(el);
+                        if(daodao.logined)
+                            daodao.delOne(el);
+                        else{
+                            mySelector("button").click();
+                        }
                     })
                 }
             )
@@ -123,10 +128,15 @@ function Daodao(url, cnt) {
             document.getElementsByClassName('createbox')[0].style.display="none";
 
         };
-        document.getElementsByClassName("createDaodao")[0].onclick=function(){
-            document.getElementsByClassName('createbox')[0].style.display="block";
-            mySelector(".popOutBg").style.display = "block";
-        }
+        document.getElementsByClassName("dd-create")[0].onclick=function(){
+                if(daodao.logined!==1){
+                    mySelector("button").click();
+                }else{
+                    document.getElementsByClassName('createbox')[0].style.display="block";
+                    mySelector(".popOutBg").style.display = "block";
+                }
+            }
+
         mySelector("#ddloginbox").onsubmit = function () { return daodao.login(); }
         function getPreview() {
             var prev = 1;
@@ -137,7 +147,9 @@ function Daodao(url, cnt) {
                     marked(document.getElementsByClassName('Input_text')[0].value);
                     document.getElementsByClassName('createMain')[0].style.display="none";
                     document.getElementsByClassName('createContent')[0].style.display="block";
+                    document.getElementsByClassName('dd-preview')[0].innerText = "编辑"
                 }else{
+                    document.getElementsByClassName('dd-preview')[0].innerText = "预览"
                     document.getElementsByClassName('createContent')[0].style.display="none";
                     document.getElementsByClassName('createMain')[0].style.display="block";
                     prev=1;
@@ -145,8 +157,8 @@ function Daodao(url, cnt) {
             }
             return preview;
         }
-        document.getElementsByClassName("previewBtn")[0].onclick=getPreview();
-        document.getElementsByClassName("postBtn")[0].onclick=function(){daodao.create();}
+        document.getElementsByClassName("dd-preview")[0].onclick=getPreview();
+        document.getElementsByClassName("dd-post")[0].onclick=function(){daodao.create();}
 
     }
     this.login = function () {
@@ -155,7 +167,7 @@ function Daodao(url, cnt) {
             "password": mySelector("#password").value
         }), function (result) {
             if (result["code"] === 1) {
-
+                daodao.logined=1;
                 mySelector(".popOut").style.display = "none";
                 mySelector(".popOutBg").style.display = "none";
             }

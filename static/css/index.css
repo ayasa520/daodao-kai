@@ -71,18 +71,7 @@ input {
     outline: none;
 }
 
-button,
-.login {
-    width: 120px;
-    height: 42px;
-    background: #f40;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    display: inline-block;
-    margin: 20px auto;
-    cursor: pointer;
-}
+
 
 .popOutBg {
     width: 100%;
@@ -166,7 +155,6 @@ right: 12px!important;
 .Input_Box {     
     width: 100%;     
     height: 100%   ;     
-    border: 1px solid #ccc;     
     transition: border linear .2s, box-shadow linear .5s;     
     -moz-transition: border linear .2s, -moz-box-shadow linear .5s;     
     -webkit-transition: border linear .2s, -webkit-box-shadow linear .5s;     
@@ -181,22 +169,22 @@ right: 12px!important;
     box-shadow: 0 0 5px #ccc;     
 }     
 .Input_Box>textarea {     
-    width: 100%;     
-    height: 200px;     
-    padding: 5px;     
+    width: 440px;     
+    height: 240px;     
+    margin: 5px;     
     outline: none;     
-    border: 0px solid #fff;     
+    border: 1px solid rgb(0, 0, 0);     
     resize: none;     
     font: 13px "微软雅黑", Arial, Helvetica, sans-serif;     
     -moz-border-radius: 5px;     
     -webkit-border-radius: 5px;     
     border-radius: 5px;     
 }     
-.Input_Foot {     
+.dd-input-foot{     
+    text-align: right;
     width: 100%;     
     height: 35px; 
-    top:200px;    
-    border-top: 1px solid #ccc;     
+    top:260px;    
     background-color: #fff;     
     -moz-border-radius: 0 0 5px 5px;     
     -webkit-border-radius: 0 0 5px 5px;     
@@ -274,7 +262,6 @@ right: 12px!important;
 }
 #bber {
     width: 100%;
-    height: 240px;
 }
 
 #ddloading svg {
@@ -282,4 +269,50 @@ right: 12px!important;
     height: 200px;
     margin: 20px;
     display: inline-block;
+}
+.dd-actions{
+    text-align:right
+}
+.dd-bt{
+    width: 56px;
+    height: 32px;
+    display: inline-block;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    background: #FFF;
+    border: 1px solid #DCDFE6;
+    -webkit-appearance: none;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+    outline: 0;
+    margin: 0;
+    -webkit-transition: .1s;
+    font-weight: 500;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    padding: 9px 15px;
+    font-size: 12px;
+    border-radius: 4px;
+}
+.dd-login:hover{
+    color: #409eff;
+    background-color: #409eff10;
+    border-color: #409eff80;
+}
+.dd-create:hover{
+    background: #66b1ff;
+    border-color: #66b1ff;
+    color: #FFF;
+    border-color: #c6e2ff;
+}
+.dd-create{
+    margin-left: 10px;
+    color: #FFF;
+    background-color: #409EFF;
+    border-color: #409EFF;
+}
+.dd-post{
+    margin-left: 10px;
 }

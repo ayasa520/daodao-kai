@@ -35,39 +35,41 @@
             <div class="list" id="bbitems">
             </div>
         </section>
-    </div>
-    <button type="button" class="loginDaodao">登录</button>
-    <button type="button" class="createDaodao">新建</button>
-    <div class="popOutBg"></div>
-    <div class="popOut">
-        <div class="box" id="ddloginbox">
-            <span class="logoff" title="关闭"> x </span>
-
-            <h2>登录</h2>
-            <form action="/api/login" method="POST">
-                <div class="inputbox">
-                    <input type="text" id="username" name="username" required="">
-                    <label>用户名</label>
-                </div>
-                <div class="inputbox">
-                    <input type="password" id="password" name="password" required="">
-                    <label>密码</label>
-                </div>
-                <input type="submit" name="" value="确定">
-            </form>
+        <div class="dd-actions">
+            <button type="button" class="dd-bt dd-login">登录</button>
+            <button type="button" class="dd-bt dd-create">新建</button>
         </div>
-    </div>
-    <div class="createbox popOut">
-        <div class="createContent "></div>
-        <div class="createMain">
-            <div class="Input_Box">
-                <textarea class="Input_text"></textarea>
+        <div class="popOutBg"></div>
+        <div class="popOut">
+            <div class="box" id="ddloginbox">
+                <span class="logoff" title="关闭"> x </span>
 
+                <h2>登录</h2>
+                <form action="/api/login" method="POST">
+                    <div class="inputbox">
+                        <input type="text" id="username" name="username" required="">
+                        <label>用户名</label>
+                    </div>
+                    <div class="inputbox">
+                        <input type="password" id="password" name="password" required="">
+                        <label>密码</label>
+                    </div>
+                    <input type="submit" name="" value="确定">
+                </form>
             </div>
         </div>
-        <div class="Input_Foot">
-            <button class="previewBtn" onclick="preview()">预览</button>
-            <button class="postBtn" onclick="create()">发布</button>
+        <div class="createbox popOut">
+            <div class="createContent "></div>
+            <div class="createMain">
+                <div class="Input_Box">
+                    <textarea class="Input_text"></textarea>
+
+                </div>
+            </div>
+            <div class="dd-input-foot">
+                <button class="dd-bt dd-preview">预览</button>
+                <button class="dd-bt dd-post">发布</button>
+            </div>
         </div>
     </div>
 
