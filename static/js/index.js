@@ -13,8 +13,10 @@ if(typeof getScript !== "function")
         document.head.appendChild(script)
       })
 if(typeof template !== "function")
-      getScript("https://unpkg.com/art-template@4.13.2/lib/template-web.js");
-
+     { getScript("https://unpkg.com/art-template@4.13.2/lib/template-web.js");}
+if(typeof marked !=="function"){
+    getScript("https://cdn.jsdelivr.net/npm/marked/marked.min.js");
+}
 
 Date.prototype.Format = function (fmt) { //javascript时间日期函数
     var o = {
