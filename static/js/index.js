@@ -109,7 +109,7 @@ function Daodao(url, cnt) {
 
             var html = template('template', { list: result.data })
             mySelector("#bbitems").innerHTML = html;
-            if(onddLoaded)
+            if(typeof onddLoaded==="function")
                 onddLoaded();
             document.getElementById("ddloading").style.display = "none";
             Array.from(document.getElementsByClassName("delete_right")).forEach(
