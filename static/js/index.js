@@ -109,8 +109,8 @@ function Daodao(url, cnt) {
 
             var html = template('template', { list: result.data })
             mySelector("#bbitems").innerHTML = html;
-            if(extra && extra.onCompleted)
-                extra.onCompleted();
+            if(extra && onCompleted)
+                onCompleted();
             document.getElementById("ddloading").style.display = "none";
             Array.from(document.getElementsByClassName("delete_right")).forEach(
                 (el) => {
