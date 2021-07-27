@@ -73,11 +73,12 @@
         </div>
     </div>
 
+    <script async src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://unpkg.com/art-template@4.13.2/lib/template-web.js"></script>
     
-    <script src="/js/index.js"></script>
-    <script>const daodao = new Daodao('http://localhost:5000', 23)
-        daodao.init()
+    <script defer src="/js/index.js" onload="init()"></script>
+    <script>
+        function init(){window.daodao = new Daodao("http://localhost:5000", 23);daodao.init();}
     </script>
 
 </body>
