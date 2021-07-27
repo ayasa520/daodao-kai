@@ -94,7 +94,7 @@ function Daodao(url, cnt) {
     this.url = url;
     this.cnt = cnt;
 
-    this.init = function () {
+    this.init = function (extra) {
         dataGetter("get", `${this.url}/api/query/${this.cnt}`, null, function (result) {
             console.log(result);
             daodao.logined = result.login;
@@ -109,6 +109,8 @@ function Daodao(url, cnt) {
 
             var html = template('template', { list: result.data })
             mySelector("#bbitems").innerHTML = html;
+            if(extra && extra.onCompleted)
+                extra.onCompleted();
             document.getElementById("ddloading").style.display = "none";
             Array.from(document.getElementsByClassName("delete_right")).forEach(
                 (el) => {
