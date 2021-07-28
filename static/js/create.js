@@ -38,7 +38,7 @@ function getBrowserInfo() {
     return { broswer: "", version: "0" };
 }
 function preview() {
-    document.getElementById('content').innerHTML =
+    document.getElementById('createContent').innerHTML =
         marked(document.getElementsByClassName('Input_text')[0].value);
 }
 function create() {
@@ -47,7 +47,7 @@ function create() {
     }
     var ua = getBrowserInfo();
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("post", "api/create");
+    xmlHttp.open("post", "/api/create");
     xmlHttp.setRequestHeader("Content-type", "application/json");
     xmlHttp.send(
         JSON.stringify({

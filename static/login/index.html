@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>登录</title>
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
-    <div class="box">
+    <div class="box" id="ddloginbox">
         <h2>登录</h2>
-        <form action="http://127.0.0.1:5000/api/login"  method="POST" onsubmit="return ajax_submit();">
+        <form action="/api/login"  method="POST" onsubmit="return ajax_submit();">
             <div class="inputbox">
                 <input type="text" id="username" name="username" required="">
                 <label>用户名</label>
@@ -23,7 +23,7 @@
     </div>
 
 </body>
-<script defer src="js/login.js"></script>
+<script defer src="/js/login.js"></script>
 </html>
 
 

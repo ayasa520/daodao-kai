@@ -24,7 +24,6 @@ app.config['SECRET_KEY'] = os.urandom(24)
 
 # url='mongodb://%s:%s@%s' % ("rikka",urllib.quote_plus( "P@55w0rd"), "cluster0.fznke.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 myclient = pymongo.MongoClient(os.environ['MONGODB'])
-
 mydb = myclient["test"]
 mycol = mydb["test"]
 
@@ -97,7 +96,12 @@ def query(q):
     result = list(mycol.find().sort([("_id", -1)]).limit(int(q)))
     for each in result:
         each['_id'] = str(each['_id'])
-    return jsonify(result)
+
+    islogin = 0
+    if g.user:
+        islogin = 1
+
+    return jsonify({"login": islogin, "data": result})
 
 
 # 返回最新创建的

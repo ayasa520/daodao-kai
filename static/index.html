@@ -5,36 +5,81 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="/css/index.css" />
     <title>首页</title>
 </head>
 
 <body>
     <div id="bber">
+        <div id="ddloading" style="text-align: center;width: 100%;height: 100%;"><svg xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100"
+                enable-background="new 0 0 100 100" xml:space="preserve">
+                <path fill="#efefef"
+                    d="M31.6,3.5C5.9,13.6-6.6,42.7,3.5,68.4c10.1,25.7,39.2,38.3,64.9,28.1l-3.1-7.9c-21.3,8.4-45.4-2-53.8-23.3   c-8.4-21.3,2-45.4,23.3-53.8L31.6,3.5z">
+                    <animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="2s"
+                        from="0 50 50" to="360 50 50" repeatCount="indefinite"></animateTransform>
+                </path>
+                <path fill="#efefef"
+                    d="M42.3,39.6c5.7-4.3,13.9-3.1,18.1,2.7c4.3,5.7,3.1,13.9-2.7,18.1l4.1,5.5c8.8-6.5,10.6-19,4.1-27.7   c-6.5-8.8-19-10.6-27.7-4.1L42.3,39.6z">
+                    <animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s"
+                        from="0 50 50" to="-360 50 50" repeatCount="indefinite"></animateTransform>
+                </path>
+                <path fill="#efefef"
+                    d="M82,35.7C74.1,18,53.4,10.1,35.7,18S10.1,46.6,18,64.3l7.6-3.4c-6-13.5,0-29.3,13.5-35.3s29.3,0,35.3,13.5   L82,35.7z">
+                    <animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="2s"
+                        from="0 50 50" to="360 50 50" repeatCount="indefinite"></animateTransform>
+                </path>
+            </svg>
+        </div>
         <section class="timeline page-1">
             <div class="list" id="bbitems">
             </div>
         </section>
+        <div class="dd-actions">
+            <button type="button" class="dd-bt dd-login">登录</button>
+            <button type="button" class="dd-bt dd-create">新建</button>
+        </div>
+        <div class="popOutBg"></div>
+        <div class="popOut">
+            <div class="box" id="ddloginbox">
+                <span class="logoff" title="关闭"> x </span>
+
+                <h2>登录</h2>
+                <form action="/api/login" method="POST">
+                    <div class="inputbox">
+                        <input type="text" id="username" name="username" required="">
+                        <label>用户名</label>
+                    </div>
+                    <div class="inputbox">
+                        <input type="password" id="password" name="password" required="">
+                        <label>密码</label>
+                    </div>
+                    <input type="submit" name="" value="确定">
+                </form>
+            </div>
+        </div>
+        <div class="createbox popOut">
+            <div class="createContent "></div>
+            <div class="createMain">
+                <div class="Input_Box">
+                    <textarea class="Input_text"></textarea>
+
+                </div>
+            </div>
+            <div class="dd-input-foot">
+                <button class="dd-bt dd-preview">预览</button>
+                <button class="dd-bt dd-post">发布</button>
+            </div>
+        </div>
     </div>
 
-
-
-
+    <script async src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://unpkg.com/art-template@4.13.2/lib/template-web.js"></script>
-    <script id="template" type="text/html">
-        {{each list item index}}
-        <div class="item" id={{item["_id"]}}>
-            <p class="datatime">{{item["date"]}}</p>
-            <p class="datacont">
-                {{@item["content"]}}
-            </p>
-            <p class="datafrom">
-                <small><i class="fas fa-tools"></i>{{item["from"]}}</small>
-            </p>
-        </div>
-    {{/each}}
+    
+    <script defer src="/js/index.js" onload="init()"></script>
+    <script>
+        function init(){window.daodao = new Daodao("http://localhost:5000", 23);daodao.init();}
     </script>
-    <script defer src="js/index.js"></script>
 
 </body>
 
