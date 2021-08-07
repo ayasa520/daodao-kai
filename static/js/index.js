@@ -105,6 +105,29 @@ function Daodao(url, cnt) {
             )
         });
 
+        var oTxt = document.getElementsByClassName("Input_text")[0];
+        oTxt.onkeydown = function (ev) {
+            var oEvent = ev || event;
+            if (oEvent.keyCode == 9) {
+                /*关键部分 开始(重要! 去掉浏览器的默认事件 不然会按tab之后光标会跳去其他的地方,用户优化不好)*/
+                if (oEvent.preventDefault) {
+                    oEvent.preventDefault();
+                }
+                else {
+                    window.event.returnValue = false;
+                }
+                let cursorIndex = this.selectionStart;
+                let oldValue = oTxt.value;
+                /*关键部分 结束*/
+                oTxt.value = oldValue.slice(0, cursorIndex) + "    " + oldValue.slice(cursorIndex); //这里放入了4个空格
+
+                this.focus();
+                this.selectionStart = cursorIndex + 4;
+                this.selectionEnd = cursorIndex + 4;
+
+            }
+        }
+
         function ani() {
             mySelector(".popOut").className = "popOut ani";
         }

@@ -257,7 +257,13 @@ right: 12px!important;
 }    
 .createContent{
     display: none;
-    height: 200px;
+    height: 242px;
+    overflow: scroll;
+    
+    overflow-x:hidden;
+}
+.createContent::-webkit-scrollbar{
+    display: none;
 }
 .createbox{
     display: none;
