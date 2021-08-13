@@ -351,8 +351,8 @@ right: 12px!important;
 }
 
 .createContent li, ol, ul {
-    list-style: revert;
-    display: revert;
-    margin: revert;
-    padding: revert;
+    list-style: revert!important;
+    display: revert!important;
+    margin: revert!important;
+    padding: revert!important;
 }
