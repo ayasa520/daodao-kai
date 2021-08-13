@@ -2,9 +2,7 @@
     margin: 0;
     padding: 0;
 }
-video,img{
-    width: 100px;
-}
+
 .box {
     position: absolute;
     top: 0px;
