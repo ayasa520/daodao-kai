@@ -1,6 +1,6 @@
 {
   "name": "daodaoplus",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "叨叨plus，增加登录在线发布、删除的功能，不依赖于 issue",
   "main": "statc/js/index.js",
   "scripts": {
