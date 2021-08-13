@@ -2,11 +2,13 @@
 # 这里的路由也是需要写上 /api 的
 
 import os
+import subprocess
 import urllib
 from dataclasses import dataclass
 from bson import ObjectId
 from datetime import timedelta
 import os
+from werkzeug.utils import secure_filename
 import sys
 from flask import Flask, jsonify, request, session, g
 import pymongo
@@ -35,7 +37,7 @@ class User:
 
 
 users = [
-    User(os.environ["USERNAME"], os.environ["PASSWORD"])
+    User(os.environ['USERNAME'], os.environ['PASSWORD'])
 ]
 
 
@@ -63,6 +65,16 @@ def login():
         return jsonify({'code': 1, 'msg': "登陆成功"})
     else:
         return jsonify({'code': 0, 'msg': "密码错误"})
+
+# @app.route('/api/upload', methods=['post'])
+# def upload():
+#     file = request.files['img']
+#     if file and 'image' in file.mimetype:
+#         filename = secure_filename(file.filename)
+#         file.save(os.path.join(os.getcwd() + "/static", filename))
+#         subprocess.Popen('cd static && ../LightUploader -c ../auth.json -f "{}" -r "/Public/image"; if [ "$?" != 0 ]; then echo "Fail!";else rm -rf {};echo "Success!"; fi'.format(filename,filename),shell=True)
+#         return jsonify({'url':"https://onedrive.bilibilianime.com/e55T/image/{}".format(filename)}),200
+#     return jsonify({'data':"不允许上传非图片文件"}), 415
 
 
 @app.route('/api/logout', methods=['get'])

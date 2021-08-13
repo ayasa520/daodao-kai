@@ -184,6 +184,7 @@ right: 12px!important;
 }     
 .dd-input-foot{     
     text-align: right;
+    display: flex;
     width: 100%;     
     height: 35px; 
     top:260px;    
@@ -323,4 +324,11 @@ right: 12px!important;
 }
 .dd-post{
     margin-left: 10px;
+    margin-right: 6px;
+}
+.dd-action-bar{
+    display: flex;
+    align-items: center;
+    flex: 1;
+    margin-left: 6px;
 }

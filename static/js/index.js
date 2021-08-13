@@ -13,7 +13,23 @@ Date.prototype.Format = function (fmt) { //javascript时间日期函数
         if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
     return fmt;
 };
-
+function ajaxpromise({ URL, method = 'GET', data = null, contentType = false }) {
+    return new Promise(function (resolve, reject) {
+        var req = new XMLHttpRequest();
+        req.open(method, URL, true);
+        req.send(data);
+        req.contentType = contentType;
+        req.onreadystatechange = function () {
+            if (req.readyState == 4) {
+                if (req.status === 200) {
+                    resolve((req.responseText));
+                } else {
+                    reject((req.responseText));
+                }
+            };
+        }
+    });
+}
 function getDate() {
     return new Date().Format("yyyy-MM-dd hh:mm:ss");
 }
@@ -65,8 +81,8 @@ function makeData() {
     return getData;
 
 }
-if(typeof dataGetter!=="function"){
-     window.dataGetter = makeData();
+if (typeof dataGetter !== "function") {
+    window.dataGetter = makeData();
 }
 
 //app, 显示数量
@@ -78,7 +94,7 @@ function Daodao(url, cnt) {
         dataGetter("get", `${this.url}/api/query/${this.cnt}`, null, function (result) {
             console.log(result);
             daodao.logined = result.login;
-            
+
             if (!document.getElementById('template')) {
                 var temp = document.createElement('script');
                 temp.id = "template";
@@ -89,44 +105,21 @@ function Daodao(url, cnt) {
 
             var html = template('template', { list: result.data })
             mySelector("#bbitems").innerHTML = html;
-            if(typeof onddLoaded==="function")
+            if (typeof onddLoaded === "function")
                 onddLoaded();
             document.getElementById("ddloading").style.display = "none";
             Array.from(document.getElementsByClassName("delete_right")).forEach(
                 (el) => {
                     el.addEventListener("click", function () {
-                        if(daodao.logined)
+                        if (daodao.logined)
                             daodao.delOne(el);
-                        else{
+                        else {
                             mySelector("button").click();
                         }
                     })
                 }
             )
         });
-
-        var oTxt = document.getElementsByClassName("Input_text")[0];
-        oTxt.onkeydown = function (ev) {
-            var oEvent = ev || event;
-            if (oEvent.keyCode == 9) {
-                /*关键部分 开始(重要! 去掉浏览器的默认事件 不然会按tab之后光标会跳去其他的地方,用户优化不好)*/
-                if (oEvent.preventDefault) {
-                    oEvent.preventDefault();
-                }
-                else {
-                    window.event.returnValue = false;
-                }
-                let cursorIndex = this.selectionStart;
-                let oldValue = oTxt.value;
-                /*关键部分 结束*/
-                oTxt.value = oldValue.slice(0, cursorIndex) + "    " + oldValue.slice(cursorIndex); //这里放入了4个空格
-
-                this.focus();
-                this.selectionStart = cursorIndex + 4;
-                this.selectionEnd = cursorIndex + 4;
-
-            }
-        }
 
         function ani() {
             mySelector(".popOut").className = "popOut ani";
@@ -143,41 +136,55 @@ function Daodao(url, cnt) {
         mySelector(".popOutBg").onclick = function () {
             mySelector(".popOut").style.display = "none";
             mySelector(".popOutBg").style.display = "none";
-            document.getElementsByClassName('createbox')[0].style.display="none";
+            document.getElementsByClassName('createbox')[0].style.display = "none";
 
         };
-        document.getElementsByClassName("dd-create")[0].onclick=function(){
-                if(daodao.logined!==1){
-                    mySelector("button").click();
-                }else{
-                    document.getElementsByClassName('createbox')[0].style.display="block";
-                    mySelector(".popOutBg").style.display = "block";
-                }
+        document.getElementsByClassName("dd-create")[0].onclick = function () {
+            if (daodao.logined !== 1) {
+                mySelector("button").click();
+            } else {
+                document.getElementsByClassName('createbox')[0].style.display = "block";
+                mySelector(".popOutBg").style.display = "block";
             }
+        }
 
         mySelector("#ddloginbox").onsubmit = function () { return daodao.login(); }
         function getPreview() {
             var prev = 1;
-            function preview(){
-                if(prev){
-                    prev=0;
+            function preview() {
+                if (prev) {
+                    prev = 0;
                     document.getElementsByClassName('createContent')[0].innerHTML =
-                    marked(document.getElementsByClassName('Input_text')[0].value);
-                    document.getElementsByClassName('createMain')[0].style.display="none";
-                    document.getElementsByClassName('createContent')[0].style.display="block";
+                        marked(document.getElementsByClassName('Input_text')[0].value);
+                    document.getElementsByClassName('createMain')[0].style.display = "none";
+                    document.getElementsByClassName('createContent')[0].style.display = "block";
                     document.getElementsByClassName('dd-preview')[0].innerText = "编辑"
-                }else{
+                } else {
                     document.getElementsByClassName('dd-preview')[0].innerText = "预览"
-                    document.getElementsByClassName('createContent')[0].style.display="none";
-                    document.getElementsByClassName('createMain')[0].style.display="block";
-                    prev=1;
+                    document.getElementsByClassName('createContent')[0].style.display = "none";
+                    document.getElementsByClassName('createMain')[0].style.display = "block";
+                    prev = 1;
                 }
             }
             return preview;
         }
-        document.getElementsByClassName("dd-preview")[0].onclick=getPreview();
-        document.getElementsByClassName("dd-post")[0].onclick=function(){daodao.create();}
+        document.getElementsByClassName("dd-preview")[0].onclick = getPreview();
+        document.getElementsByClassName("dd-post")[0].onclick = function () { daodao.create(); }
 
+        let dom = document.getElementById('up');
+        let formData = new FormData();
+        let URL = "https://7bu.top/api/upload";
+
+        dom.onchange = function () {
+            formData.delete('image');
+            formData.append("image", dom.files[0]);
+            document.getElementsByClassName('Input_text')[0].value+=` ![${formData.getAll('image')[0].name}](uploading)`
+            ajaxpromise({ URL: URL, method: 'POST', data: formData }).then(function onFulfilled(value) {
+                document.getElementsByClassName('Input_text')[0].value=document.getElementsByClassName('Input_text')[0].value.replace(`![${formData.getAll('image')[0].name}](uploading)`,`![${JSON.parse(value)['data']['name']}](${JSON.parse(value)['data']['url']})`)
+            }).catch(function onRejected(error) {
+                alert('错误：' + JSON.parse(error)['data']);
+            });
+        }
     }
     this.login = function () {
         dataGetter("post", `${this.url}/api/login`, JSON.stringify({
@@ -185,7 +192,7 @@ function Daodao(url, cnt) {
             "password": mySelector("#password").value
         }), function (result) {
             if (result["code"] === 1) {
-                daodao.logined=1;
+                daodao.logined = 1;
                 mySelector(".popOut").style.display = "none";
                 mySelector(".popOutBg").style.display = "none";
             }
@@ -205,10 +212,11 @@ function Daodao(url, cnt) {
         }), function (result) {
             console.log(result);
             alert(result.msg);
-            if(result.code)
-            {document.getElementsByClassName('Input_text')[0].value = "";mySelector(".popOutBg").click();
-            daodao.init();}
-            
+            if (result.code) {
+                document.getElementsByClassName('Input_text')[0].value = ""; mySelector(".popOutBg").click();
+                daodao.init();
+            }
+
         })
 
     }
@@ -228,7 +236,3 @@ function Daodao(url, cnt) {
         }
     }
 }
-
-
-
-
