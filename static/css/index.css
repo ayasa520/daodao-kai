@@ -349,3 +349,10 @@ right: 12px!important;
     flex: 1;
     margin-left: 6px;
 }
+
+.createContent li, ol, ul {
+    list-style: revert;
+    display: revert;
+    margin: revert;
+    padding: revert;
+}
