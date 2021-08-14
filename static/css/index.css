@@ -350,7 +350,7 @@ right: 12px!important;
     margin-left: 6px;
 }
 
-.createContent li, ol, ul {
+.createContent li,.createContent  ol,.createContent  ul {
     list-style: revert!important;
     display: revert!important;
     margin: revert!important;
