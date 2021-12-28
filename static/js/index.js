@@ -170,7 +170,7 @@ function Daodao(url, cnt) {
         }
         document.getElementsByClassName("dd-preview")[0].onclick = getPreview();
         document.getElementsByClassName("dd-post")[0].onclick = function () { daodao.create(); }
-
+1
         let dom = document.getElementById('up');
         let formData = new FormData();
         let URL = "https://7bu.top/api/upload";
