@@ -155,7 +155,7 @@ function Daodao(url, cnt) {
                 if (prev) {
                     prev = 0;
                     document.getElementsByClassName('createContent')[0].innerHTML =
-                        marked(document.getElementsByClassName('Input_text')[0].value);
+                        marked.parse(document.getElementsByClassName('Input_text')[0].value);
                     document.getElementsByClassName('createMain')[0].style.display = "none";
                     document.getElementsByClassName('createContent')[0].style.display = "block";
                     document.getElementsByClassName('dd-preview')[0].innerText = "编辑"
@@ -206,7 +206,7 @@ function Daodao(url, cnt) {
         }
         var ua = getBrowserInfo();
         dataGetter("post", `${this.url}/api/create`, JSON.stringify({
-            "content": marked(document.getElementsByClassName('Input_text')[0].value),
+            "content": marked.parse(document.getElementsByClassName('Input_text')[0].value),
             "from": ua["broswer"] + "/" + ua["version"],
             "date": getDate()
         }), function (result) {
