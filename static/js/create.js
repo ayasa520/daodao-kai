@@ -39,7 +39,7 @@ function getBrowserInfo() {
 }
 function preview() {
     document.getElementById('createContent').innerHTML =
-        marked.parse(document.getElementsByClassName('Input_text')[0].value);
+         marked.parse(document.getElementsByClassName('Input_text')[0].value);
 }
 function create() {
     if (document.getElementsByClassName('Input_text')[0].value === "") {
@@ -51,7 +51,7 @@ function create() {
     xmlHttp.setRequestHeader("Content-type", "application/json");
     xmlHttp.send(
         JSON.stringify({
-            "content": marked.parse(document.getElementsByClassName('Input_text')[0].value),
+            "content":  marked.parse(document.getElementsByClassName('Input_text')[0].value),
             "from": ua["broswer"]+"/"+ua["version"],
             "date": getDate()
         })
